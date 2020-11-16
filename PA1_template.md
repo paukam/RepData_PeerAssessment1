@@ -29,15 +29,10 @@ summary(activityDS)
 
 ```r
 stepsByDay <- aggregate(steps ~ date, data = activityDS, FUN = sum, na.rm = TRUE)
-#png(file="figures/plot1.png")
 hist(stepsByDay$steps, xlab = "Steps per Day", main = "Total number of steps taken per day", col = "blue") 
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
-
-```r
-#dev.off()
-```
   
   2. Calculate and report the mean and median total number of steps taken per day
 
@@ -63,15 +58,10 @@ median(stepsByDay$steps)
 
 ```r
 avgStepsMean <- aggregate(steps ~ interval, data = activityDS, FUN = mean, na.rm = TRUE)
-#png(file="figures/plot2.png")
 plot(avgStepsMean$interval, avgStepsMean$steps, type = "l", xlab = "Inervals", ylab = "Average no. of steps", main = "The average number of steps taken per interval")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
-
-```r
-#dev.off()
-```
   
   2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -100,15 +90,10 @@ sum(is.na(activityDS))
 
 ```r
 missingValues <- subset(activityDS, is.na(steps))
-#png(file="figures/plot3.png")
 hist(missingValues$interval, main="NAs per interval")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
-
-```r
-#dev.off()
-```
   
   3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
   
@@ -134,15 +119,10 @@ hist(missingValues$interval, main="NAs per interval")
 
 ```r
 NewStepsByDay <- aggregate(steps ~ date, data = newDS, FUN = sum)
-#png(file="figures/plot4.png")
 hist(NewStepsByDay$steps, xlab = "Steps per Day", main = "Total number of steps taken per day", col = "blue")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
-
-```r
-#dev.off()
-```
 
     5. Calculate and report the mean and median total number of steps taken per day.
     
@@ -180,17 +160,12 @@ newDS$dayType <- factor(newDS$dayType)
 
 ```r
 stepsByIntervalDayType <- aggregate(steps ~ interval + dayType, data = newDS, FUN = mean)
-#png(file="figures/plot5.png")
 library(ggplot2)
 plot <- ggplot(stepsByIntervalDayType, aes(interval, steps))
 plot + geom_line(color = "blue") + facet_grid(dayType~.) + labs(x = "Intervals", y = "Average Steps", title = "Activity Patterns")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
-
-```r
-#dev.off()
-```
 
 
 
